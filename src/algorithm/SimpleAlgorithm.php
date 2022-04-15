@@ -8,6 +8,6 @@ class SimpleAlgorithm implements AlgorithmInterface
 {
     public function lottery(array $prizes)
     {
-
+        //TODO
     }
 }
