@@ -1,0 +1,32 @@
+{
+   
+    "name": "jinhongtl/lottery",
+    "type": "framework",
+    "description": " Lottery framework ",
+    "keywords": ["framework", "lottery", "helper"],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/jinhongtl/lottery",
+        "forum": "https://github.com/jinhongtl/lottery",
+        "wiki": "https://github.com/jinhongtl/lottery",
+        "irc": "https://github.com/jinhongtl/lottery",
+        "source": "https://github.com/jinhongtl/lottery"
+    },
+    "authors": [
+        {
+            "name": "jinhongtl",
+            "email": "jinhongtl@163.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "lottery\\": "src"
+        }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    }
+}
