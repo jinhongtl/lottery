@@ -29,7 +29,7 @@ class Lottery
             throw new InvalidConfigException("lotteryClass must be implements interface LotteryInterface");
         }
 
-        if ($this->algorithm === null) {
+        if ($algorithm === null) {
             $this->algorithm = new PercentAlgorithm();
         } else {
             $this->algorithm = $algorithm;
