@@ -20,5 +20,5 @@ interface LotteryInterface
     public function preLottery($userId, $activityId): bool;
 
     /** 写入奖品 */
-    public function afterLottery($userId, $activityId, Prize $prize);
+    public function afterLottery($userId, $activityId, Prize $prize): bool;
 }
