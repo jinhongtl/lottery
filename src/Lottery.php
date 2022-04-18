@@ -35,7 +35,7 @@ class Lottery
             $this->algorithm = $algorithm;
         }
 
-        if ($this->algorithm instanceof AlgorithmInterface) {
+        if (!$this->algorithm instanceof AlgorithmInterface) {
             throw new InvalidConfigException("algorithm must be implements interface AlgorithmInterface");
         }
     }
