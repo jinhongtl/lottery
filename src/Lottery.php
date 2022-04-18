@@ -25,8 +25,18 @@ class Lottery
             throw new InvalidConfigException("lotteryClass must be set");
         }
 
+        if (!$this->lotteryClass instanceof LotteryInterface) {
+            throw new InvalidConfigException("lotteryClass must be implements interface LotteryInterface");
+        }
+
         if ($this->algorithm === null) {
             $this->algorithm = new PercentAlgorithm();
+        } else {
+            $this->algorithm = $algorithm;
+        }
+
+        if (!$this->algorithm instanceof AlgorithmInterface) {
+            throw new InvalidConfigException("algorithm must be implements interface AlgorithmInterface");
         }
     }
 
@@ -39,24 +49,23 @@ class Lottery
     public function run($userId, $activityId = 0): Prize
     {
         $class = $this->lotteryClass;
-
-        if (!$class::check($userId, $activityId)) {
+        $class->init($userId, $activityId);
+        if (!$class->check()) {
             throw new CheckException("You have not get allow to lottery");
         }
 
-        if (!$class::deductionLotteryNum($userId, $activityId)) {
+        if (!$class->deductionLotteryNum()) {
             throw new DeductionLotteryNumException("You have not get allow to lottery");
-
         }
 
-        if (!$class::checkLimit($userId, $activityId)) {
+        if (!$class->checkLimit()) {
             throw new CheckLimitException("You have not get allow to lottery");
         }
 
-        if (!$class::preLottery($userId, $activityId)) {
+        if (!$class->preLottery()) {
             throw new UnLuckyException("Unlucky to get the prize,next time you will get it");
         }
-        $prizes = $class::getPrizes($userId, $activityId);
+        $prizes = $class->getPrizes();
         if (!$prizes) {
             throw new PrizeNotFoundException("Could not find any prize");
         }
@@ -64,7 +73,9 @@ class Lottery
         if (!$prize) {
             throw new UnLuckyException("Unlucky to get the prize,next time you will get it");
         }
-        $class::afterLottery($userId, $activityId, $prize);
+        if (!$class->afterLottery($prize)) {
+            throw new UnLuckyException("Unlucky to get the prize,next time you will get it");
+        }
         return $prize;
     }
 }
